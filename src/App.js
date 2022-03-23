@@ -1,24 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import "./App.css";
+import Wrapper from "./components/Wrapper";
+import axios from "axios";
 
 function App() {
+  const [countries, setCountries] = useState([]); //define our state in react hooks
+
+  // console.log(countries);
+
+  // const getCountries = () => {
+  //   fetch("https://restcountries.com/v2/all")
+  //     .then((response) => response.json())
+  //     .then((data) => setCountries(data));
+  // };
+
+  // useEffect(() => {
+  //   getCountries();
+  // }, []);
+
+  useEffect(() => {
+    axios.get("https://restcountries.com/v2/all").then((response) => {
+      // console.log(response);
+      setCountries(response.data);
+    });
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <React.Fragment>
+      <Wrapper countries={countries} />
+    </React.Fragment>
   );
 }
 
