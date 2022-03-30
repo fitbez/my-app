@@ -1,33 +1,16 @@
 import React, { useState, useEffect } from "react";
+import { CountryProvider } from "./CountryContext";
 import "./App.css";
 import Wrapper from "./components/Wrapper";
 import axios from "axios";
 
 function App() {
-  const [countries, setCountries] = useState([]); //define our state in react hooks
-
-  // console.log(countries);
-
-  // const getCountries = () => {
-  //   fetch("https://restcountries.com/v2/all")
-  //     .then((response) => response.json())
-  //     .then((data) => setCountries(data));
-  // };
-
-  // useEffect(() => {
-  //   getCountries();
-  // }, []);
-
-  useEffect(() => {
-    axios.get("https://restcountries.com/v2/all").then((response) => {
-      // console.log(response);
-      setCountries(response.data);
-    });
-  }, []);
-
+  console.log(CountryProvider);
   return (
     <React.Fragment>
-      <Wrapper countries={countries} />
+      <CountryProvider>
+        <Wrapper />
+      </CountryProvider>
     </React.Fragment>
   );
 }
